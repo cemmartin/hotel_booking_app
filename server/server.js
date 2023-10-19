@@ -19,4 +19,30 @@ MongoClient.connect("mongodb://127.0.0.1:27017")
 
 app.listen(9000, function () {
   console.log("server is working");
+
+//how to add the check in
+// app.post('/api/bookings', (req, res) => {
+//   const newData = req.body;
+//   if (newData.hasOwnProperty("name") && newData.hasOwnProperty("email")) {
+//     bookingsCollection
+//       .insertOne(newData)
+//       .then((result) => {
+//         newData._id = result.insertedId
+//         res.json(newData);
+//       })
+//       .catch((err) => {
+//         console.error(err)
+//         res.status(500)
+//         res.json({status: 500, error: err})
+//       })
+//   } else {
+//     res.status(400);
+//     res.send("Please check that your booking contains a valid name & email.")
+//   }
+
+
+// })
 });
+
+
+//

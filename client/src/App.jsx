@@ -1,41 +1,9 @@
-// import { useState, useEffect } from "react";
-// import './App.css';
-// import {getBookings} from './BookingsService';
-
-// function App() {
-
-//   const [guestBookings, setGuestBookings] = useState([])
-  
-//   useEffect(() => {
-//     getBookings().then((allBookings) => {
-//       setGuestBookings(allBookings);
-//     })
-//   }, []);
-
-//   //add booking
-//   const addBooking = (booking) => {
-//     setGuestBookings([...guestBookings, bookings]) //sets it equal to itself w/ the addition of the new bookings
-//   }
-
-//   //delete bookings
-//   const deleteBooking = (id) => { //removes by id
-//     const bookingsToKeep = guestBookings.filter(booking =>
-//       booking.id !== id)
-//     setGuestBookings(bookingsToKeep)
-//   }
-//   return (
-//     <>
-      
-//     </>
-//   );
-// }
-
-// export default App;
-
 import { useState, useEffect } from 'react';
 import './App.css';
+
 import { getBookings } from './BookingService';
 import BookingList from './components/BookingList';
+import BookingForm from './components/BookingForm';
 
 function App() {
 
@@ -47,10 +15,20 @@ function App() {
     })
   }, []);
 
+  const addBooking = (booking) => {
+    setGuestBookings([...guestBookings, booking]);
+  }
+
+  const trashBooking = (id) => {
+    const bookingsToKeep = guestBookings.filter(booking => booking._id !== id)
+    setGuestBookings(bookingsToKeep)
+  }
+
+
   return (
     <>
-      {/* <BookingForm addBoookings={addBoookings}/> */}
-      <BookingList guestBookings={guestBookings} />
+      <BookingForm addBooking={addBooking}/>
+      <BookingList guestBookings={guestBookings} trashBooking={trashBooking}/>
     </>
   );
 }

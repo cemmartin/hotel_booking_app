@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { postBookings } from "../BookingService";
+
 
 const BookingForm = ({addBooking}) => {
     
@@ -8,12 +10,30 @@ const BookingForm = ({addBooking}) => {
         // checkedIn: false //not 100% sure how to do this bit
     })
 
+    const onChange = (evt) => {
+        const newFormData = Object.assign({}, formData)
+        newFormData[evt.target.name] = evt.target.value;
+        setFormData(newFormData)
+    }
+
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        postBookings(formData).then((data) => {
+            addBooking(data);
+        })
+
+        setFormData({
+            name: "",
+            email: ""
+        })
+    }
+
 
 return (
-    <form>
+    <form onSubmit={onSubmit} id="booking-form" >
         <div>
             <label htmlFor="guest">Guest Name:</label>
-            <input
+            <input onChange={onChange}
                 type="text"
                 id="guest"
                 name="guest"
@@ -23,7 +43,7 @@ return (
         </div>
         <div>
             <label htmlFor="email">E-mail:</label>
-            <input
+            <input onChange={onChange}
                 type="text"
                 id="email"
                 name="email"
